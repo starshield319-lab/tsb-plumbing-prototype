@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TSB Plumbing Services, Inc. — Website Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#07090c;
+  --dark:#0c1018;
+  --carbon:#121820;
+  --slate:#1a2330;
+  --slate2:#22303f;
+  --blue:#0d4f8c;
+  --blue2:#1464b0;
+  --cyan:#0ea5c8;
+  --cyan2:#22c0e0;
+  --silver:#c8d4e0;
+  --muted:#5a6a7a;
+  --white:#eef2f6;
+  --border:rgba(14,165,200,0.18);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden}
+
+/* PROTO BANNER */
+.proto-banner{background:linear-gradient(90deg,var(--blue),var(--cyan));padding:0.45rem 1rem;text-align:center;font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#fff}
+
+/* NAV WRAPPER */
+.nav-wrap{position:sticky;top:0;z-index:999}
+nav{background:rgba(7,9,12,0.98);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo-wrap{display:flex;flex-direction:column}
+.logo-main{font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:0.1em;color:var(--cyan2);line-height:1}
+.logo-sub{font-size:0.55rem;font-weight:500;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-top:1px}
+.nav-links{display:flex;list-style:none;gap:0}
+.nav-links a{display:block;padding:0.4rem 0.85rem;font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--cyan2)}
+.nav-right{display:flex;align-items:center;gap:0.7rem}
+.nav-phone{font-size:0.8rem;font-weight:600;color:var(--cyan2);letter-spacing:0.03em}
+.desk-cta{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;padding:0.5rem 1.1rem;border:none;border-radius:3px;font-family:'Rajdhani',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+
+/* HAMBURGER */
+.hbtn{display:none;background:none;border:none;cursor:pointer;padding:6px;-webkit-tap-highlight-color:transparent}
+.hbtn span{display:block;width:26px;height:2px;background:var(--white);border-radius:2px;margin:5px 0;transition:transform 0.3s,opacity 0.3s}
+.hbtn.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hbtn.is-open span:nth-child(2){opacity:0}
+.hbtn.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* DRAWER */
+.drawer{background:rgba(7,9,12,0.99);border-bottom:1px solid var(--border);max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+.drawer.is-open{max-height:420px}
+.drawer-inner{padding:0.5rem 1.5rem 1.5rem}
+.drawer-inner a{display:block;padding:0.85rem 0;font-size:0.9rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--silver);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06)}
+.drawer-phone{text-align:center;margin:1rem 0 0.5rem;font-size:1.05rem;font-weight:700;color:var(--cyan2)}
+.drawer-cta{display:block;width:100%;padding:0.9rem;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;border:none;border-radius:4px;font-family:'Rajdhani',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;text-align:center;margin-top:0.5rem;-webkit-tap-highlight-color:transparent}
+
+/* HERO */
+.hero{background:linear-gradient(155deg,var(--black) 0%,var(--carbon) 30%,#0a1828 60%,var(--black) 100%);padding:3.5rem 1.5rem 3rem;position:relative;overflow:hidden;min-height:85vh;display:flex;align-items:center}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(14,165,200,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,200,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.hero-glow{position:absolute;top:-10%;right:-5%;width:55%;height:120%;background:radial-gradient(ellipse 65% 70% at 65% 40%,rgba(13,79,140,0.18) 0%,rgba(14,165,200,0.06) 45%,transparent 70%);pointer-events:none}
+.hero-inner{position:relative;z-index:2;width:100%}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:1rem}
+.h-line{width:2rem;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:1px}
+.h-eye{font-family:'Rajdhani',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--cyan)}
+.hero-badge{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(13,79,140,0.3);border:1px solid rgba(14,165,200,0.3);color:var(--cyan2);padding:0.35rem 0.9rem;border-radius:2px;font-family:'Rajdhani',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1.2rem}
+.hero h1{font-family:'Rajdhani',sans-serif;font-size:clamp(2.5rem,9vw,5rem);font-weight:700;line-height:0.95;letter-spacing:0.04em;color:#fff;margin-bottom:0.4rem}
+.hero h1 em{color:var(--cyan2);font-style:normal;display:block}
+.hero-sub{font-size:clamp(0.85rem,2.5vw,0.98rem);color:var(--silver);line-height:1.65;margin-bottom:1.8rem;font-weight:300;max-width:520px}
+.hero-phone{font-family:'Rajdhani',sans-serif;font-size:clamp(1.5rem,5vw,2rem);font-weight:700;color:var(--cyan2);letter-spacing:0.04em;margin-bottom:0.2rem}
+.hero-contact-line{font-size:0.72rem;font-weight:500;color:var(--muted);letter-spacing:0.06em;margin-bottom:1.8rem}
+.hero-contact-line a{color:var(--cyan);text-decoration:none}
+.hero-btns{display:flex;gap:0.7rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.btn-p{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;padding:0.9rem 1.6rem;border:none;border-radius:3px;font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;flex:1;min-width:130px;-webkit-tap-highlight-color:transparent}
+.btn-c{background:transparent;color:var(--cyan2);padding:0.9rem 1.6rem;border:1.5px solid rgba(14,165,200,0.4);border-radius:3px;font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;flex:1;min-width:130px;-webkit-tap-highlight-color:transparent}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem}
+.hstat{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:6px;padding:0.9rem;text-align:center}
+.hstat-num{font-family:'Rajdhani',sans-serif;font-size:1.6rem;font-weight:700;color:var(--cyan2);line-height:1}
+.hstat-lbl{font-size:0.58rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-top:0.2rem}
+
+/* TRUST BAR */
+.trust-bar{background:linear-gradient(90deg,var(--carbon),var(--slate),var(--carbon));padding:0.8rem 1.5rem;display:flex;gap:1.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.trust-bar::-webkit-scrollbar{display:none}
+.titem{display:flex;align-items:center;gap:0.4rem;font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap;flex-shrink:0}
+.ticon{color:var(--cyan2)}
+
+/* SECTIONS */
+.sec{padding:3rem 1.5rem}
+.sec-eyebrow{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.4rem}
+.sec-line{width:1.8rem;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:1px}
+.sec-eye{font-family:'Rajdhani',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--cyan)}
+.sec-title{font-family:'Rajdhani',sans-serif;font-size:clamp(1.8rem,6vw,2.6rem);font-weight:700;letter-spacing:0.04em;color:#fff;line-height:1;margin-bottom:0.5rem}
+.sec-title span{color:var(--cyan2)}
+.sec-desc{font-size:0.88rem;color:var(--muted);line-height:1.65;margin-bottom:2rem;font-weight:300}
+
+/* SERVICES */
+.svc-section{background:linear-gradient(180deg,var(--black),var(--carbon))}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,195px),1fr));gap:1rem}
+.svc-card{background:linear-gradient(145deg,rgba(26,35,48,0.8),rgba(12,16,24,0.95));border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:1.3rem;cursor:pointer;position:relative;overflow:hidden;transition:border-color 0.25s,transform 0.2s}
+.svc-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan));opacity:0;transition:opacity 0.25s}
+.svc-card:hover{border-color:rgba(14,165,200,0.3);transform:translateY(-2px)}
+.svc-card:hover::after{opacity:1}
+.svc-icon{font-size:1.5rem;margin-bottom:0.7rem}
+.svc-card h3{font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#fff;margin-bottom:0.35rem}
+.svc-card p{font-size:0.75rem;color:var(--muted);line-height:1.55;font-weight:300}
+
+/* WHY US */
+.why-sec{background:linear-gradient(160deg,var(--slate),#0f1e2e,var(--carbon))}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:1.2rem}
+.why-card{background:rgba(7,9,12,0.5);border:1px solid var(--border);border-radius:8px;padding:1.5rem}
+.why-num{font-family:'Rajdhani',sans-serif;font-size:2.2rem;font-weight:700;color:var(--cyan);line-height:1;margin-bottom:0.5rem}
+.why-card h3{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#fff;margin-bottom:0.4rem}
+.why-card p{font-size:0.82rem;color:var(--muted);line-height:1.6;font-weight:300}
+.credentials{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:0.4rem;margin-top:1.8rem}
+.cred-item{display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--white);padding:0.45rem 0.7rem;background:rgba(13,79,140,0.15);border:1px solid rgba(14,165,200,0.15);border-radius:4px;font-weight:400}
+.cred-dot{width:5px;height:5px;border-radius:50%;background:var(--cyan2);flex-shrink:0}
+
+/* ESTIMATE */
+.est-sec{background:linear-gradient(155deg,var(--black),#091422,var(--black));padding:3rem 1.5rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.est-header{text-align:center;margin-bottom:2rem}
+.free-badge{display:inline-block;background:linear-gradient(90deg,var(--blue),var(--blue2));color:#fff;font-family:'Rajdhani',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;padding:0.28rem 0.9rem;border-radius:2px;margin-bottom:0.6rem}
+.est-form{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:800px;margin:0 auto}
+.fg{display:flex;flex-direction:column;gap:0.35rem}
+.fg.full{grid-column:1/-1}
+.flabel{font-family:'Rajdhani',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--cyan2)}
+.finput{background:rgba(255,255,255,0.04);border:1px solid rgba(14,165,200,0.2);border-radius:4px;padding:0.7rem 0.85rem;color:#fff;font-family:'Inter',sans-serif;font-size:16px;outline:none;transition:border-color 0.2s;width:100%;-webkit-appearance:none;appearance:none}
+.finput:focus{border-color:var(--cyan)}
+.finput option{background:#0c1018;color:#fff}
+.check-sec{grid-column:1/-1}
+.check-title{font-family:'Rajdhani',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--cyan2);margin-bottom:0.7rem}
+.check-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr));gap:0.45rem}
+.check-item{display:flex;align-items:center;gap:0.45rem;font-size:0.8rem;color:var(--silver);cursor:pointer;padding:0.35rem 0;font-weight:300;-webkit-tap-highlight-color:transparent}
+.check-item input{accent-color:var(--cyan2);width:18px;height:18px;flex-shrink:0}
+.est-result{display:none;grid-column:1/-1;background:linear-gradient(135deg,rgba(26,35,48,0.9),rgba(7,9,12,0.98));border:1px solid var(--cyan);border-radius:8px;padding:1.5rem;margin-top:0.5rem}
+.est-result.show{display:block}
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;margin-bottom:1rem}
+.ritem{text-align:center;padding:0.8rem;background:rgba(255,255,255,0.02);border-radius:6px;border:1px solid rgba(255,255,255,0.06)}
+.r-label{font-family:'Rajdhani',sans-serif;font-size:0.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.25rem}
+.r-val{font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:700;color:var(--cyan2);line-height:1}
+.result-note{font-size:0.78rem;color:var(--muted);line-height:1.6;border-top:1px solid var(--border);padding-top:0.8rem;font-weight:300}
+.submit-row{grid-column:1/-1;display:flex;flex-direction:column;gap:0.7rem;margin-top:0.8rem}
+.btn-est{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;padding:1rem;border:none;border-radius:4px;font-family:'Rajdhani',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;width:100%;-webkit-tap-highlight-color:transparent}
+.btn-rst{background:transparent;color:var(--muted);padding:0.8rem;border:1px solid rgba(255,255,255,0.1);border-radius:4px;font-family:'Rajdhani',sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;width:100%;-webkit-tap-highlight-color:transparent}
+
+/* HOURS */
+.hours-sec{background:linear-gradient(180deg,var(--carbon),var(--black))}
+.hours-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:0.35rem;margin-top:1.5rem}
+.hday{background:rgba(26,35,48,0.6);border:1px solid rgba(255,255,255,0.05);border-radius:6px;padding:0.65rem 0.25rem;text-align:center}
+.hday.open{border-color:var(--border)}
+.hday.closed{opacity:0.4}
+.day-name{font-family:'Rajdhani',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:0.2rem}
+.day-hrs{font-size:0.58rem;color:var(--white);line-height:1.4;font-weight:300}
+.day-badge{display:inline-block;margin-top:0.25rem;padding:0.1rem 0.35rem;border-radius:2px;font-family:'Rajdhani',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase}
+.badge-open{background:rgba(14,165,200,0.15);color:var(--cyan2)}
+.badge-closed{background:rgba(255,255,255,0.04);color:var(--muted)}
+
+/* CONTACT */
+.contact-sec{background:linear-gradient(135deg,var(--blue) 0%,#082d56 40%,var(--black) 100%);padding:3rem 1.5rem;position:relative;overflow:hidden}
+.contact-inner{position:relative;z-index:2}
+.contact-info{display:flex;flex-direction:column;gap:1.2rem;margin-top:1.2rem}
+.cinfo-label{font-family:'Rajdhani',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:2px}
+.cinfo-val{font-size:0.95rem;font-weight:600;color:#fff}
+.call-btn{display:block;width:100%;margin-top:1.5rem;padding:1rem;background:#fff;color:var(--blue);border:none;border-radius:4px;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-align:center;cursor:pointer;text-decoration:none;-webkit-tap-highlight-color:transparent}
+
+/* FOOTER */
+footer{background:#04060a;padding:1.5rem;border-top:1px solid var(--border)}
+.footer-inner{display:flex;flex-direction:column;gap:1rem;text-align:center}
+.footer-logo{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:0.1em;color:var(--cyan2)}
+.footer-logo span{display:block;font-size:0.55rem;font-weight:500;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;font-family:'Inter',sans-serif;margin-top:2px}
+.footer-mid{font-size:0.72rem;color:var(--muted);line-height:1.7}
+.footer-mid a{color:var(--cyan2);text-decoration:none}
+.footer-copy{font-size:0.65rem;color:var(--muted)}
+.footer-copy span{color:rgba(255,255,255,0.15);font-size:0.58rem;display:block}
+
+/* RESPONSIVE */
+@media(min-width:768px){
+  nav{padding:0 2rem}
+  .hbtn{display:none!important}
+  .drawer{display:none!important}
+  .nav-links{display:flex!important}
+  .nav-phone,.desk-cta{display:flex!important}
+  .hero{padding:5rem 2.5rem 4rem;min-height:auto}
+  .sec{padding:4rem 2.5rem}
+  .est-sec{padding:4rem 2.5rem}
+  .hours-sec{padding:4rem 2.5rem}
+  .contact-sec{padding:4rem 2.5rem}
+  .est-form{grid-template-columns:1fr 1fr}
+  .result-grid{grid-template-columns:repeat(3,1fr)}
+  .submit-row{flex-direction:row;justify-content:center}
+  .btn-est,.btn-rst{width:auto;padding:0.9rem 2rem}
+  .contact-info{flex-direction:row;flex-wrap:wrap;gap:2rem}
+  .footer-inner{flex-direction:row;justify-content:space-between;align-items:center;text-align:left}
+  .trust-bar{justify-content:center}
+}
+@media(max-width:767px){
+  .nav-links,.nav-phone,.desk-cta{display:none}
+  .hbtn{display:flex!important;flex-direction:column;justify-content:center}
+  .est-form{grid-template-columns:1fr}
+  .fg.full{grid-column:1}
+  .hours-grid{grid-template-columns:repeat(4,1fr)}
+  .hday:nth-child(1),.hday:nth-child(7){display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="proto-banner">⚙ Website Prototype — Design Review Only · TSB Plumbing Services, Inc.</div>
+
+<!-- NAV WRAPPER -->
+<div class="nav-wrap">
+  <nav>
+    <div class="logo-wrap">
+      <div class="logo-main">TSB PLUMBING</div>
+      <div class="logo-sub">Services, Inc. · Spring, Texas · Est. 2003</div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#why">Why TSB</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <span class="nav-phone">📞 (281) 367-4872</span>
+      <button class="desk-cta" onclick="goTo('estimate')">Get a Quote</button>
+      <button class="hbtn" id="hbtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-inner">
+      <a href="#" onclick="closeDrawer()">Home</a>
+      <a href="#services" onclick="closeDrawer()">Services</a>
+      <a href="#why" onclick="closeDrawer()">Why TSB</a>
+      <a href="#contact" onclick="closeDrawer()">Contact</a>
+      <div class="drawer-phone">📞 (281) 367-4872</div>
+      <button class="drawer-cta" onclick="closeDrawer();goTo('estimate')">Get a Quote</button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><div class="h-line"></div><span class="h-eye">Greater Houston Area · Commercial Plumbing Specialists</span></div>
+    <div class="hero-badge">🏆 Top 5% of Texas Licensed Contractors</div>
+    <h1>TSB PLUMBING<em>SERVICES, INC.</em></h1>
+    <p class="hero-sub">Houston's trusted commercial plumbing partner since 2003. We specialize in office building new construction, remodel, and service — backed by $2M in general liability and a $10M excess umbrella policy.</p>
+    <div class="hero-phone">📞 (281) 367-4872</div>
+    <div class="hero-contact-line">Mon–Fri 7:00AM–4:30PM &nbsp;·&nbsp; <a href="mailto:stacey@tsbplumbing.com">stacey@tsbplumbing.com</a> &nbsp;·&nbsp; Emergency services for existing clients</div>
+    <div class="hero-btns">
+      <button class="btn-p" onclick="goTo('estimate')">Request a Quote</button>
+      <button class="btn-c" onclick="goTo('services')">Our Services</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num">20+</div><div class="hstat-lbl">Years in Houston</div></div>
+      <div class="hstat"><div class="hstat-num">$2M</div><div class="hstat-lbl">General Liability</div></div>
+      <div class="hstat"><div class="hstat-num">471+</div><div class="hstat-lbl">Permits Completed</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="titem"><span class="ticon">✔</span> Licensed & Insured</div>
+  <div class="titem"><span class="ticon">✔</span> $2M General Liability</div>
+  <div class="titem"><span class="ticon">✔</span> $10M Umbrella Policy</div>
+  <div class="titem"><span class="ticon">✔</span> Top 5% TX Contractors</div>
+  <div class="titem"><span class="ticon">✔</span> New Construction & Remodel</div>
+  <div class="titem"><span class="ticon">✔</span> All Classes of Buildings</div>
+</div>
+
+<!-- SERVICES -->
+<section class="sec svc-section" id="services">
+  <div class="sec-eyebrow"><div class="sec-line"></div><span class="sec-eye">What We Do</span></div>
+  <div class="sec-title">Commercial Plumbing <span>Solutions</span></div>
+  <p class="sec-desc">From ground-up construction to complex remodels and ongoing service — TSB Plumbing delivers expert commercial plumbing for general contractors, property managers, and building owners across Greater Houston.</p>
+  <div class="svc-grid">
+    <div class="svc-card"><div class="svc-icon">🏗️</div><h3>New Construction</h3><p>Full plumbing rough-in and finish for commercial office buildings of all classes.</p></div>
+    <div class="svc-card"><div class="svc-icon">🔨</div><h3>Commercial Remodeling</h3><p>Complete plumbing remodel services for tenant improvements and building upgrades.</p></div>
+    <div class="svc-card"><div class="svc-icon">🔧</div><h3>Plumbing Service & Repair</h3><p>Responsive commercial plumbing service and repairs for existing clients.</p></div>
+    <div class="svc-card"><div class="svc-icon">🚨</div><h3>Emergency Services</h3><p>24/7 emergency plumbing response available for existing clients when it matters most.</p></div>
+    <div class="svc-card"><div class="svc-icon">🏢</div><h3>Office Buildings</h3><p>Specialists in all classes of commercial office buildings — Class A, B, and C properties.</p></div>
+    <div class="svc-card"><div class="svc-icon">💧</div><h3>Water Systems</h3><p>Commercial water supply, distribution, and drainage system installation and service.</p></div>
+    <div class="svc-card"><div class="svc-icon">📋</div><h3>Permit Management</h3><p>Full permit coordination and code compliance across Harris and surrounding counties.</p></div>
+    <div class="svc-card"><div class="svc-icon">🤝</div><h3>GC Partnerships</h3><p>Trusted subcontractor partner for general contractors across the Greater Houston area.</p></div>
+  </div>
+</section>
+
+<!-- WHY TSB -->
+<section class="sec why-sec" id="why">
+  <div class="sec-eyebrow"><div class="sec-line"></div><span class="sec-eye">Why TSB Plumbing</span></div>
+  <div class="sec-title">The Commercial Plumber <span>GCs Trust</span></div>
+  <p class="sec-desc">When your project timeline and reputation are on the line, you need a plumbing partner who shows up, delivers, and stands behind their work.</p>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-num">01</div><h3>20+ Years of Experience</h3><p>Serving the Greater Houston commercial market since 2003. Hundreds of completed projects across all building classes — the experience shows in every job.</p></div>
+    <div class="why-card"><div class="why-num">02</div><h3>Fully Insured & Protected</h3><p>$2M general liability plus a $10M excess umbrella policy. Your project and property are protected. No shortcuts, no surprises.</p></div>
+    <div class="why-card"><div class="why-num">03</div><h3>Top 5% of TX Contractors</h3><p>BuildZoom rank of 108 — top 5% of 222,000+ licensed Texas contractors. A track record that speaks for itself across 471+ permitted projects.</p></div>
+  </div>
+  <div class="credentials">
+    <div class="cred-item"><div class="cred-dot"></div>$2M General Liability</div>
+    <div class="cred-item"><div class="cred-dot"></div>$10M Umbrella Policy</div>
+    <div class="cred-item"><div class="cred-dot"></div>Top 5% TX Licensed</div>
+    <div class="cred-item"><div class="cred-dot"></div>471+ Permits Filed</div>
+    <div class="cred-item"><div class="cred-dot"></div>All Building Classes</div>
+    <div class="cred-item"><div class="cred-dot"></div>GC Trusted Partner</div>
+    <div class="cred-item"><div class="cred-dot"></div>Emergency Response</div>
+    <div class="cred-item"><div class="cred-dot"></div>Code Compliant</div>
+  </div>
+</section>
+
+<!-- QUOTE ESTIMATOR -->
+<section class="est-sec" id="estimate">
+  <div class="est-header">
+    <div class="free-badge">Free · No Obligation</div>
+    <div class="sec-title" style="text-align:center">Request a <span>Project Quote</span></div>
+    <p style="color:var(--muted);font-size:0.85rem;margin-top:0.4rem;text-align:center;line-height:1.6;max-width:480px;margin-left:auto;margin-right:auto">Tell us about your project and get an instant ballpark. Stacey will follow up with a detailed quote tailored to your scope.</p>
+  </div>
+  <div class="est-form">
+    <div class="fg"><label class="flabel">Your Name</label><input class="finput" type="text" placeholder="First & Last Name" id="fname" autocomplete="name"></div>
+    <div class="fg"><label class="flabel">Company Name</label><input class="finput" type="text" placeholder="Your Company" id="company"></div>
+    <div class="fg"><label class="flabel">Phone Number</label><input class="finput" type="tel" placeholder="(281) 000-0000" id="phone" autocomplete="tel"></div>
+    <div class="fg"><label class="flabel">Email Address</label><input class="finput" type="email" placeholder="you@company.com" autocomplete="email"></div>
+    <div class="fg">
+      <label class="flabel">Project Type</label>
+      <select class="finput" id="projectType" onchange="updateEst()">
+        <option value="">— Select project type —</option>
+        <option value="newconstruction">New Construction</option>
+        <option value="remodel">Commercial Remodel / TI</option>
+        <option value="service">Plumbing Service & Repair</option>
+        <option value="emergency">Emergency Service</option>
+        <option value="inspection">Inspection / Assessment</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label class="flabel">Building Class</label>
+      <select class="finput" id="buildingClass" onchange="updateEst()">
+        <option value="a">Class A Office Building</option>
+        <option value="b">Class B Office Building</option>
+        <option value="c">Class C / Other Commercial</option>
+        <option value="mixed">Mixed Use / Other</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label class="flabel">Estimated Square Footage</label>
+      <select class="finput" id="sqft" onchange="updateEst()">
+        <option value="small">Under 5,000 sq ft</option>
+        <option value="medium">5,000 – 20,000 sq ft</option>
+        <option value="large">20,000 – 50,000 sq ft</option>
+        <option value="xlarge">50,000+ sq ft</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label class="flabel">Timeline</label>
+      <select class="finput" id="timeline" onchange="updateEst()">
+        <option value="planning">Still in planning phase</option>
+        <option value="soon">Starting within 3 months</option>
+        <option value="urgent">Starting within 30 days</option>
+        <option value="now">Immediate / Emergency</option>
+      </select>
+    </div>
+    <div class="fg full"><label class="flabel">Project Description</label><input class="finput" type="text" placeholder="Brief description of your plumbing scope..."></div>
+    <div class="check-sec">
+      <div class="check-title">Additional Scope Items</div>
+      <div class="check-grid">
+        <label class="check-item"><input type="checkbox" onchange="updateEst()"> Medical gas / specialty</label>
+        <label class="check-item"><input type="checkbox" onchange="updateEst()"> Grease interceptors</label>
+        <label class="check-item"><input type="checkbox" onchange="updateEst()"> Backflow prevention</label>
+        <label class="check-item"><input type="checkbox" onchange="updateEst()"> Fire suppression rough-in</label>
+        <label class="check-item"><input type="checkbox" onchange="updateEst()"> Multiple floors / phases</label>
+        <label class="check-item"><input type="checkbox" onchange="updateEst()"> Permit management</label>
+      </div>
+    </div>
+    <div class="est-result" id="estResult">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--cyan2);margin-bottom:1rem">📊 Project Estimate Snapshot</div>
+      <div class="result-grid">
+        <div class="ritem"><div class="r-label">Estimated Range</div><div class="r-val" id="resRange">—</div></div>
+        <div class="ritem"><div class="r-label">Project Duration</div><div class="r-val" id="resDuration">—</div></div>
+        <div class="ritem"><div class="r-label">Quote Turnaround</div><div class="r-val" id="resQuote">—</div></div>
+      </div>
+      <div class="result-note" id="resNote"></div>
+    </div>
+    <div class="submit-row">
+      <button class="btn-est" onclick="submitEst()">Send My Quote Request</button>
+      <button class="btn-rst" onclick="resetEst()">Reset</button>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section class="sec hours-sec">
+  <div class="sec-eyebrow"><div class="sec-line"></div><span class="sec-eye">Office Hours</span></div>
+  <div class="sec-title">When We're <span>Available</span></div>
+  <div class="hours-grid">
+    <div class="hday closed"><div class="day-name">Sun</div><div class="day-hrs">—</div><div class="day-badge badge-closed">Closed</div></div>
+    <div class="hday open"><div class="day-name">Mon</div><div class="day-hrs">7AM–4:30PM</div><div class="day-badge badge-open">Open</div></div>
+    <div class="hday open"><div class="day-name">Tue</div><div class="day-hrs">7AM–4:30PM</div><div class="day-badge badge-open">Open</div></div>
+    <div class="hday open"><div class="day-name">Wed</div><div class="day-hrs">7AM–4:30PM</div><div class="day-badge badge-open">Open</div></div>
+    <div class="hday open"><div class="day-name">Thu</div><div class="day-hrs">7AM–4:30PM</div><div class="day-badge badge-open">Open</div></div>
+    <div class="hday open"><div class="day-name">Fri</div><div class="day-hrs">7AM–4:30PM</div><div class="day-badge badge-open">Open</div></div>
+    <div class="hday closed"><div class="day-name">Sat</div><div class="day-hrs">—</div><div class="day-badge badge-closed">Closed</div></div>
+  </div>
+  <p style="margin-top:1rem;font-size:0.75rem;color:var(--muted);font-weight:300">Emergency services available 24/7 for existing clients · Call (281) 367-4872</p>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-sec" id="contact">
+  <div class="contact-inner">
+    <div class="sec-eyebrow"><div class="sec-line" style="background:rgba(255,255,255,0.4)"></div><span class="sec-eye" style="color:rgba(255,255,255,0.6)">Get In Touch</span></div>
+    <div class="sec-title" style="color:#fff">Let's Talk About <span style="color:var(--cyan2)">Your Project</span></div>
+    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.65;margin-top:0.4rem;font-weight:300">Whether you're a general contractor, property manager, or building owner — TSB Plumbing is ready to be your trusted commercial plumbing partner.</p>
+    <div class="contact-info">
+      <div><div class="cinfo-label">Phone</div><div class="cinfo-val">📞 (281) 367-4872</div></div>
+      <div><div class="cinfo-label">Email</div><div class="cinfo-val">✉️ stacey@tsbplumbing.com</div></div>
+      <div><div class="cinfo-label">Address</div><div class="cinfo-val">📍 2531 Spring Creek Drive<br>Spring, TX 77373</div></div>
+      <div><div class="cinfo-label">Hours</div><div class="cinfo-val">Mon–Fri · 7:00 AM – 4:30 PM</div></div>
+    </div>
+    <a href="tel:2813674872" class="call-btn">📞 Tap to Call: (281) 367-4872</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">TSB Plumbing Services, Inc.<span>Commercial Plumbing · Spring, TX · Est. 2003</span></div>
+    <div class="footer-mid"><a href="tel:2813674872">(281) 367-4872</a> · <a href="mailto:stacey@tsbplumbing.com">stacey@tsbplumbing.com</a><br>2531 Spring Creek Drive · Spring, TX 77373</div>
+    <div class="footer-copy">© 2025 TSB Plumbing Services, Inc.<span>Prototype — design review only</span></div>
+  </div>
+</footer>
+
+<script>
+/* HAMBURGER */
+var hbtn=document.getElementById('hbtn');
+var drawer=document.getElementById('drawer');
+hbtn.addEventListener('click',function(){
+  var open=drawer.classList.toggle('is-open');
+  hbtn.classList.toggle('is-open',open);
+  hbtn.setAttribute('aria-expanded',String(open));
+  drawer.setAttribute('aria-hidden',String(!open));
+});
+function closeDrawer(){
+  drawer.classList.remove('is-open');
+  hbtn.classList.remove('is-open');
+  hbtn.setAttribute('aria-expanded','false');
+  drawer.setAttribute('aria-hidden','true');
+}
+function goTo(id){
+  var el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:'smooth'});
+}
+
+/* ESTIMATOR */
+var projectData={
+  newconstruction:{small:'$25K–$80K',medium:'$80K–$300K',large:'$300K–$900K',xlarge:'$900K+',dur:'3–18 mos',note:'New construction pricing depends heavily on fixture count, pipe runs, and spec requirements. A detailed set of drawings is recommended before finalizing scope.'},
+  remodel:{small:'$8K–$35K',medium:'$35K–$150K',large:'$150K–$500K',xlarge:'$500K+',dur:'2–12 mos',note:'Tenant improvement and remodel work varies by existing conditions. Selective demo, rerouting, and code upgrades can affect the final cost significantly.'},
+  service:{small:'$500–$5K',medium:'$2K–$20K',large:'$10K–$50K',xlarge:'Custom',dur:'1–30 days',note:'Service and repair pricing depends on the nature and urgency of the issue. TSB will assess on-site and provide exact pricing before work begins.'},
+  emergency:{small:'$800+',medium:'$2K+',large:'$5K+',xlarge:'Custom',dur:'Immediate',note:'Emergency response available 24/7 for existing clients. Dispatch prioritized immediately — pricing confirmed on arrival.'},
+  inspection:{small:'$350–$800',medium:'$500–$1,500',large:'$1K–$3K',xlarge:'Custom',dur:'1–5 days',note:'Commercial plumbing assessment and inspection with written report. Recommended before any major renovation or property acquisition.'}
+};
+var quoteTime={planning:'3–5 Days',soon:'2–3 Days',urgent:'24–48 hrs',now:'Same Day'};
+function updateEst(){
+  var pt=document.getElementById('projectType').value;
+  var sq=document.getElementById('sqft').value;
+  var tl=document.getElementById('timeline').value;
+  var bc=document.getElementById('buildingClass').value;
+  var addons=document.querySelectorAll('.check-grid input:checked').length;
+  var res=document.getElementById('estResult');
+  if(!pt){res.classList.remove('show');return}
+  var d=projectData[pt];
+  var range=d[sq]||d['small'];
+  if(bc==='a')range=range+' (Class A premium may apply)';
+  if(addons>0)range=range+' + scope add-ons';
+  document.getElementById('resRange').textContent=range;
+  document.getElementById('resDuration').textContent=d.dur;
+  document.getElementById('resQuote').textContent=quoteTime[tl]||'3–5 Days';
+  document.getElementById('resNote').textContent=d.note+(addons>0?' '+addons+' additional scope item(s) flagged — Stacey will address these in the detailed quote.':'')+' TSB Plumbing confirms all pricing before any work begins.';
+  res.classList.add('show');
+}
+function submitEst(){
+  var name=document.getElementById('fname').value;
+  var phone=document.getElementById('phone').value;
+  var pt=document.getElementById('projectType').value;
+  if(!name||!phone||!pt){alert('Please fill in your name, phone number, and select a project type.');return}
+  alert('✅ Quote Request Received!\n\nThank you, '+name+'! Stacey will be in touch at '+phone+' within one business day with a detailed quote.\n\n📞 Or call directly: (281) 367-4872\n✉️ stacey@tsbplumbing.com');
+}
+function resetEst(){
+  document.getElementById('fname').value='';
+  document.getElementById('company').value='';
+  document.getElementById('phone').value='';
+  document.getElementById('projectType').value='';
+  document.getElementById('buildingClass').value='a';
+  document.getElementById('sqft').value='small';
+  document.getElementById('timeline').value='planning';
+  document.querySelectorAll('.check-grid input').forEach(function(c){c.checked=false});
+  document.getElementById('estResult').classList.remove('show');
+}
+</script>
+</body>
+</html>
